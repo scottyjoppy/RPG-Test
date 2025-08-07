@@ -1,0 +1,37 @@
+#include <SFML/Graphics.hpp>
+
+int main()
+{
+	sf::ContextSettings settings;
+	settings.antialiasingLevel = 8;
+	sf::RenderWindow window(sf::VideoMode(800, 600), "RPG Game", sf::Style::Default, settings);
+	
+	sf::ConvexShape convex;
+	convex.setPointCount(5);
+
+	convex.setPoint(0, {10.f, 10.f});
+	convex.setPoint(1, {200.f, 10.f});
+	convex.setPoint(2, {300.f, 200.f});
+	convex.setPoint(3, {300.f, 400.f});
+	convex.setPoint(4, {10.f, 400.f});
+
+	sf::RectangleShape line({150.f, 1.f});
+	line.setPosition(400, 300);
+	while (window.isOpen())
+	{	
+		sf::Event event;
+
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+				window.close();
+		}	
+		
+		window.clear(sf::Color::Black);
+		window.draw(convex);
+		window.draw(line);
+		window.display();
+	}
+
+	return 0;
+}
