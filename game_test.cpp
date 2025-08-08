@@ -45,6 +45,7 @@ int main()
 		sf::Vector2f position = playerSprite.getPosition();
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 			playerSprite.setPosition(position - sf::Vector2f(1, 0));
+
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 			playerSprite.setPosition(position + sf::Vector2f(1, 0));
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
