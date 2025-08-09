@@ -20,8 +20,11 @@ int main()
 	//-----INITIALIZE-----
 	sf::ContextSettings settings;
 	settings.antialiasingLevel = 8;
-	sf::RenderWindow window(sf::VideoMode(800, 600), "RPG Game", sf::Style::Default, settings);
+	sf::RenderWindow window(sf::VideoMode(1920, 1080), "RPG Game", sf::Style::Default, settings);
 	//-----INITIALIZE-----
+	
+	std::vector<sf::RectangleShape> bullets;
+	float bulletSpeed = 0.5f;
 
 	//-----LOAD-----
 	
@@ -70,15 +73,6 @@ int main()
 	
 	//-----LOAD-----
 	
-	//-----CALC BULLET DIRECTION-----
-	sf::RectangleShape bullet(sf::Vector2f(50, 20));
-	bullet.setPosition(playerSprite.getPosition());
-
-	sf::Vector2f direction = enemySprite.getPosition() - bullet.getPosition();
-	direction = NormalizeVector(direction);
-
-	//-----CALC BULLET DIRECTION-----
-
 
 	//-----GAME LOOP-----
 	while (window.isOpen())
@@ -92,8 +86,6 @@ int main()
 				window.close();
 		}	
 
-		bullet.setPosition(bullet.getPosition() + direction);
-
 		sf::Vector2f position = playerSprite.getPosition();
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 			playerSprite.setPosition(position - sf::Vector2f(1, 0));
@@ -104,13 +96,32 @@ int main()
 			playerSprite.setPosition(position - sf::Vector2f(0, 1));
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 			playerSprite.setPosition(position + sf::Vector2f(0, 1));
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
+		{
+			bullets.push_back(sf::RectangleShape(sf::Vector2f(50, 25)));
+			bullets[bullets.size() - 1].setPosition(playerSprite.getPosition());
+				
+		}
+
+		for (size_t i = 0; i < bullets.size(); i++)
+		{
+			sf::Vector2f bulletDirection = enemySprite.getPosition() - bullets[i].getPosition();
+			bulletDirection = NormalizeVector(bulletDirection);
+			bullets[i].setPosition(bullets[i].getPosition() + bulletDirection * bulletSpeed);
+		}
+
 		//-----UPDATE-----
 		
 		//-----DRAW-----
 		window.clear(sf::Color::Black);
 		window.draw(playerSprite);
 		window.draw(enemySprite);
-		window.draw(bullet);
+
+
+		for (size_t i = 0; i < bullets.size(); i++)
+		{	
+			window.draw(bullets[i]);
+		}
 		window.display();
 		//-----DRAW-----
 	}
