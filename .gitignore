@@ -3,8 +3,8 @@
 *.swp
 *.swo
 *.un~
-.*.swp
-.*.swo
+*.*.swp
+*.*.swo
 
 # Build files
 *.o
