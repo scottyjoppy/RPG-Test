@@ -4,8 +4,8 @@ INCLUDES = -IC:\SFML\include
 LIBDIRS = -LC:\SFML\lib
 LIBS = -lsfml-graphics -lsfml-window -lsfml-system
 
-TARGET = game_test.exe
-SOURCES = game_test.cpp
+TARGET = main.exe
+SOURCES = main.cpp Player.cpp Enemy.cpp Math.cpp
 
 all: $(TARGET)
 
@@ -23,7 +23,16 @@ run:  $(TARGET)
 test: $(TARGET) run
 
 clean:
+	@echo Cleaning up...
 	@if exist $(TARGET) del /q $(TARGET)
+	@if exist *.o del /q *.o
+	@if exist *.obj del /q *.obj
+	@if exist *.exe del /q *.exe
+	@if exist *~ del /q *~
+	@if exist *.swp del /q *.swp
+	@if exist *.swo del /q *.swo
+	@if exist *.un~ del /q *.un~
+	@if exist *.tmp del /q *.tmp
 	@echo Cleanup complete!
 
 help:
@@ -31,7 +40,7 @@ help:
 	@echo	all	- Build the program (default)
 	@echo	run	- Build and run the program
 	@echo	test	- Same as run
-	@echo	cleanup - Remove compiled files
+	@echo	clean - Remove compiled files
 	@echo	help	- Show this help
 
 .PHONY: all run test clean help
