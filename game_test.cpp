@@ -1,5 +1,19 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <vector>
+#include <math.h>
+
+sf::Vector2f NormalizeVector(sf::Vector2f vector)
+{
+	float m = std::sqrt(vector.x * vector.x + vector.y * vector.y);
+
+	sf::Vector2f normalizedVector;
+
+	normalizedVector.x = vector.x / m;
+	normalizedVector.y = vector.y / m;
+
+	return normalizedVector;
+}
 
 int main()
 {
@@ -18,7 +32,7 @@ int main()
 	{
 		std::cout << "Enemy Images Loaded!" << std::endl;
 		enemySprite.setTexture(enemyTexture);
-		enemySprite.setPosition(200, 200);
+		enemySprite.setPosition(600, 400);
 
 		int XIndex = 0;
 		int YIndex = 3;
@@ -40,6 +54,7 @@ int main()
 	{
 		std::cout << "Player Images Loaded!" << std::endl;
 		playerSprite.setTexture(playerTexture);
+		playerSprite.setPosition(0, 400);
 
 		int XIndex = 0;
 		int YIndex = 0;
@@ -54,6 +69,16 @@ int main()
 	//-----HERO-----
 	
 	//-----LOAD-----
+	
+	//-----CALC BULLET DIRECTION-----
+	sf::RectangleShape bullet(sf::Vector2f(50, 20));
+	bullet.setPosition(playerSprite.getPosition());
+
+	sf::Vector2f direction = enemySprite.getPosition() - bullet.getPosition();
+	direction = NormalizeVector(direction);
+
+	//-----CALC BULLET DIRECTION-----
+
 
 	//-----GAME LOOP-----
 	while (window.isOpen())
@@ -66,6 +91,8 @@ int main()
 			if (event.type == sf::Event::Closed)
 				window.close();
 		}	
+
+		bullet.setPosition(bullet.getPosition() + direction);
 
 		sf::Vector2f position = playerSprite.getPosition();
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
@@ -83,6 +110,7 @@ int main()
 		window.clear(sf::Color::Black);
 		window.draw(playerSprite);
 		window.draw(enemySprite);
+		window.draw(bullet);
 		window.display();
 		//-----DRAW-----
 	}
