@@ -10,6 +10,9 @@ class Player
 		std::vector<sf::RectangleShape> bullets;
 		float bulletSpeed = 0.5f;
 
+		sf::RectangleShape boundingRectangle;
+		sf::Vector2i size;
+
 	public:
 		sf::Sprite sprite;
 
