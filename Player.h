@@ -8,16 +8,19 @@ class Player
 		sf::Texture texture;
 
 		std::vector<sf::RectangleShape> bullets;
-		float bulletSpeed = 0.5f;
-		float playerSpeed = 2.0f;
 
 		sf::RectangleShape boundingRectangle;
 		sf::Vector2i size;
+
+		float bulletSpeed;
+		float playerSpeed;
 
 	public:
 		sf::Sprite sprite;
 
 	public:
+		Player();
+		~Player();
 		void Initialize();
 		void Load();
 		void Update(float deltaTime, Enemy& enemy);

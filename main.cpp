@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
+#include "FrameRate.h"
 #include "Player.h"
 #include "Enemy.h"
 
@@ -10,16 +11,26 @@ int main()
 	sf::ContextSettings settings;
 	settings.antialiasingLevel = 8;
 	sf::RenderWindow window(sf::VideoMode(1920, 1080), "RPG Game", sf::Style::Default, settings);
-	window.setFramerateLimit(240);
+	window.setFramerateLimit(60);
 	//-----INITIALIZE-----
 	
+	FrameRate frameRate;
 	Player player;
-	player.Initialize();
-	player.Load();
-
 	Enemy enemy;
+
+	frameRate.Initialize();
+	player.Initialize();
 	enemy.Initialize();
+
+	//-----INITIALIZE-----
+	
+	//-----LOAD-----
+	
+	frameRate.Load();
+	player.Load();
 	enemy.Load();	
+
+	//-----LOAD-----
 
 	//-----GAME LOOP-----
 	
@@ -28,8 +39,8 @@ int main()
 	while (window.isOpen())
 	{	
 		sf::Time deltaTimeTimer = clock.restart();
-		float deltaTime = deltaTimeTimer.asMilliseconds();
-	
+		double deltaTime = deltaTimeTimer.asMicroseconds() / 1000.0;
+		
 		//-----UPDATE-----
 		sf::Event event;
 		while (window.pollEvent(event))
@@ -38,6 +49,7 @@ int main()
 				window.close();
 		}	
 
+		frameRate.Update(deltaTime);
 		enemy.Update(deltaTime);
 		player.Update(deltaTime, enemy);
 		
@@ -48,6 +60,7 @@ int main()
 
 		player.Draw(window);
 		enemy.Draw(window);
+		frameRate.Draw(window);
 
 		window.display();
 		//-----DRAW-----

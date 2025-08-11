@@ -5,7 +5,7 @@ LIBDIRS = -LC:\SFML\lib
 LIBS = -lsfml-graphics -lsfml-window -lsfml-system
 
 TARGET = main.exe
-SOURCES = main.cpp Player.cpp Enemy.cpp Math.cpp
+SOURCES = main.cpp Player.cpp Enemy.cpp Math.cpp FrameRate.cpp
 
 all: $(TARGET)
 
@@ -18,7 +18,6 @@ run:  $(TARGET)
 	@echo Running $(TARGET)...
 	@$(TARGET)
 	@echo.
-	@pause
 
 test: $(TARGET) run
 
