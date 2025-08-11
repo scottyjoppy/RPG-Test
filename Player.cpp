@@ -34,18 +34,17 @@ void Player::Load()
 	}
 }
 
-void Player::Update(Enemy& enemy)
+void Player::Update(float deltaTime, Enemy& enemy)
 {
 		sf::Vector2f position = sprite.getPosition();
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-			sprite.setPosition(position - sf::Vector2f(1, 0));
-
+			sprite.setPosition(position - sf::Vector2f(1, 0) * playerSpeed * deltaTime);
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-			sprite.setPosition(position + sf::Vector2f(1, 0));
+			sprite.setPosition(position + sf::Vector2f(1, 0) * playerSpeed * deltaTime);
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-			sprite.setPosition(position - sf::Vector2f(0, 1));
+			sprite.setPosition(position - sf::Vector2f(0, 1) * playerSpeed * deltaTime);
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-			sprite.setPosition(position + sf::Vector2f(0, 1));
+			sprite.setPosition(position + sf::Vector2f(0, 1) * playerSpeed * deltaTime);
 
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
 		{
@@ -58,15 +57,16 @@ void Player::Update(Enemy& enemy)
 		{
 			sf::Vector2f bulletDirection = enemy.sprite.getPosition() - bullets[i].getPosition();
 			bulletDirection = Math::NormalizeVector(bulletDirection);
-			bullets[i].setPosition(bullets[i].getPosition() + bulletDirection * bulletSpeed);
+			bullets[i].setPosition(bullets[i].getPosition() + bulletDirection * bulletSpeed * deltaTime);
 		}
 
 		boundingRectangle.setPosition(sprite.getPosition());
 
-		if (Math::DidRectCollide(sprite.getGlobalBounds(), enemy.sprite.getGlobalBounds()))
+		/*if (Math::DidRectCollide(sprite.getGlobalBounds(), enemy.sprite.getGlobalBounds()))
 			std::cout << "Collision" << std::endl;
 		else
 			std::cout << "No Collision" << std::endl;
+		*/
 }
 
 void Player::Draw(sf::RenderWindow& window)

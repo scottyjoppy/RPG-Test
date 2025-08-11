@@ -9,6 +9,7 @@ class Player
 
 		std::vector<sf::RectangleShape> bullets;
 		float bulletSpeed = 0.5f;
+		float playerSpeed = 2.0f;
 
 		sf::RectangleShape boundingRectangle;
 		sf::Vector2i size;
@@ -19,6 +20,6 @@ class Player
 	public:
 		void Initialize();
 		void Load();
-		void Update(Enemy& enemy);
+		void Update(float deltaTime, Enemy& enemy);
 		void Draw(sf::RenderWindow& window);	
 };
