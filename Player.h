@@ -13,6 +13,8 @@ class Player
 		sf::Vector2i size;
 
 		float bulletSpeed;
+		float maxFireRate;
+		float fireRateTimer;
 		float playerSpeed;
 
 	public:
