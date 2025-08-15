@@ -1,9 +1,16 @@
 #include <math.h>
 #include "Math.h"
+#include <iostream>
 
 sf::Vector2f Math::NormalizeVector(sf::Vector2f vector)
 {
 	float m = std::sqrt(vector.x * vector.x + vector.y * vector.y);
+
+	if (m == 0.0f || m < 0.0001f)
+	{
+		std::cout << "Trying to divide by 0 Math.cpp" << std::endl;
+		return sf::Vector2f(1.0f, 0.0f);
+	}
 
 	sf::Vector2f normalizedVector;
 
