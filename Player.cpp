@@ -18,23 +18,23 @@ void Player::Initialize()
 	boundingRectangle.setOutlineColor(sf::Color::Red);
 	boundingRectangle.setOutlineThickness(1);
 
-	size = sf::Vector2i(16, 16);
+	size = sf::Vector2i(40, 48);
 }
 
 void Player::Load()
 {
-	if (texture.loadFromFile("Assets/Player/Textures/Hero.png"))
+	if (texture.loadFromFile("Assets/Player/Textures/Character_Idle.png"))
 	{
 		std::cout << "Player Images Loaded!" << std::endl;
 		sprite.setTexture(texture);
 
-		int XIndex = 0;
-		int YIndex = 0;
+		int XIndex = 3;
+		int YIndex = 3;
 
 		sprite.setTextureRect(sf::IntRect(XIndex * size.x, YIndex * size.y, size.x, size.y));
 		sprite.setPosition(sf::Vector2f(0, 0));
 
-		sprite.scale(sf::Vector2f(3, 3));
+		sprite.scale(sf::Vector2f(1, 1));
 		boundingRectangle.setSize(sf::Vector2f(size.x * sprite.getScale().x, size.y * sprite.getScale().y));
 	}
 	else

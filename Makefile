@@ -5,7 +5,7 @@ LIBDIRS = -LC:\SFML\lib
 LIBS = -lsfml-graphics -lsfml-window -lsfml-system
 
 TARGET = main.exe
-SOURCES = main.cpp Player.cpp Enemy.cpp Math.cpp FrameRate.cpp Bullet.cpp
+SOURCES = main.cpp Player.cpp Enemy.cpp Math.cpp FrameRate.cpp Bullet.cpp Map.cpp
 
 all: $(TARGET)
 

@@ -2,6 +2,7 @@
 #include <iostream>
 
 #include "FrameRate.h"
+#include "Map.h"
 #include "Player.h"
 #include "Enemy.h"
 
@@ -15,10 +16,12 @@ int main()
 	//-----INITIALIZE-----
 	
 	FrameRate frameRate;
+	Map map;
 	Player player;
 	Enemy enemy;
 
 	frameRate.Initialize();
+	map.Initialize();
 	player.Initialize();
 	enemy.Initialize();
 
@@ -27,6 +30,7 @@ int main()
 	//-----LOAD-----
 	
 	frameRate.Load();
+	map.Load();
 	player.Load();
 	enemy.Load();	
 
@@ -52,6 +56,7 @@ int main()
 		sf::Vector2f mousePosition = sf::Vector2f(sf::Mouse::getPosition(window));
 
 		frameRate.Update(deltaTime);
+		map.Update(deltaTime);
 		enemy.Update(deltaTime);
 		player.Update(deltaTime, enemy, mousePosition);
 		
@@ -60,6 +65,7 @@ int main()
 		//-----DRAW-----
 		window.clear(sf::Color::Black);
 
+		map.Draw(window);
 		player.Draw(window);
 		enemy.Draw(window);
 		frameRate.Draw(window);
