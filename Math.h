@@ -6,4 +6,5 @@ class Math
 	public:
 		static sf::Vector2f NormalizeVector(sf::Vector2f vector);
 		static bool DidRectCollide(sf::FloatRect rect1, sf::FloatRect rect2);
+		static sf::Vector2f CalcScale(sf::Vector2i tileSize);
 };

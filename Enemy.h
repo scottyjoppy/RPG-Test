@@ -9,6 +9,10 @@ class Enemy
 		sf::Text healthText;
 		sf::Font font;
 
+		int tileWidth;
+		int tileHeight;
+		sf::Vector2f scale;
+
 	public:
 		sf::Sprite sprite;
 

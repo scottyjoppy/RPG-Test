@@ -17,6 +17,10 @@ class Player
 		float fireRateTimer;
 		float playerSpeed;
 
+		int tileWidth;
+		int tileHeight;
+		sf::Vector2f scale;
+
 	public:
 		sf::Sprite sprite;
 

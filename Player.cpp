@@ -4,7 +4,7 @@
 #include "Math.h"
 
 Player::Player() :
-	playerSpeed(1.0f), maxFireRate(150), fireRateTimer(0)
+	playerSpeed(1.0f), maxFireRate(150), fireRateTimer(0), tileWidth(40), tileHeight(48)
 {
 }
 
@@ -18,7 +18,7 @@ void Player::Initialize()
 	boundingRectangle.setOutlineColor(sf::Color::Red);
 	boundingRectangle.setOutlineThickness(1);
 
-	size = sf::Vector2i(40, 48);
+	size = sf::Vector2i(tileWidth, tileHeight);
 }
 
 void Player::Load()
@@ -34,7 +34,9 @@ void Player::Load()
 		sprite.setTextureRect(sf::IntRect(XIndex * size.x, YIndex * size.y, size.x, size.y));
 		sprite.setPosition(sf::Vector2f(0, 0));
 
-		sprite.scale(sf::Vector2f(1, 1));
+		scale = Math::CalcScale(size);
+
+		sprite.setScale(sf::Vector2f(scale.x, scale.y));
 		boundingRectangle.setSize(sf::Vector2f(size.x * sprite.getScale().x, size.y * sprite.getScale().y));
 	}
 	else

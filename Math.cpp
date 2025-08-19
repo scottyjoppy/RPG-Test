@@ -31,3 +31,24 @@ bool Math::DidRectCollide(sf::FloatRect rect1, sf::FloatRect rect2)
 		return true;
 	return false;
 }
+
+sf::Vector2f Math::CalcScale(sf::Vector2i tileSize)
+{
+	// Set 48 pixels per tile as standard
+	float defaultSize = 48;
+
+	sf::Vector2f size;
+
+	if (tileSize.x > tileSize.y)
+	{
+		size.x = defaultSize / tileSize.x;
+		size.y = defaultSize / tileSize.x;
+	}
+	else
+	{
+		size.x = defaultSize / tileSize.y;
+		size.y = defaultSize / tileSize.y;
+	}
+
+	return size;
+ }
