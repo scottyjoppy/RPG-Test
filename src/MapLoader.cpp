@@ -1,8 +1,10 @@
 #include "MapLoader.h"
+
 #include <fstream>
 #include <string>
+#include <algorithm>
 
-void MapLoader::Load(std::string filename)
+void MapLoader::Load(std::string filename, MapData& mapData)
 {
 	std::string line;
 	std::ifstream file(filename);
@@ -27,13 +29,57 @@ void MapLoader::Load(std::string filename)
 				}
 			}
 			
-			int count = line.find("=");
-			std::string variable = line.substr(0, count);
-			std::string value = line.substr(count + 1);
+			try
+			{
+				int count = line.find("=");
+				std::string variable = line.substr(0, count);
+				std::string value = line.substr(count + 1);
 
-			std::cout << variable << std::endl;
-			std::cout << value << std::endl;
-			break;
+				if (variable == "version")
+					mapData.version = std::stoi(value);
+				else if (variable == "tile-sheet")
+					mapData.tileSheet = value;
+				else if (variable == "name")
+					mapData.name = value;
+				else if (variable == "map-width")
+					mapData.mapWidth = std::stoi(value);
+				else if (variable == "map-height")
+					mapData.mapHeight = std::stoi(value);
+				else if (variable == "tile-width")
+					mapData.tileWidth = std::stoi(value);
+				else if (variable == "tile-height")
+					mapData.tileHeight = std::stoi(value);
+				else if (variable == "data")
+				{
+					mapData.dataLength = std::count(value.begin(), value.end(), ',') + 1;
+					mapData.data = new int[mapData.dataLength];
+
+					int offset = 0;
+
+					for (size_t i = 0; i < mapData.dataLength; i++)
+					{
+						int count = value.find(",", offset);
+						std::string mapIndex = value.substr(offset, count - offset);
+						
+						mapData.data[i] = std::stoi(mapIndex);
+
+						offset = count + 1;
+					}
+					if (mapData.dataLength != mapData.mapWidth * mapData.mapHeight)
+					{
+						std::cerr 	<< "ERROR: Map data length (" 
+									<< mapData.dataLength
+									<< ") does not match mapWidth*mapHeight (" 
+									<< mapData.mapWidth * mapData.mapHeight 
+									<< ")!" 
+									<< std::endl;
+					}
+				}
+			}
+			catch (const std::exception&)
+			{
+				std::cout << "Something went wrong: " << filename << std::endl;
+			}
 		}
 		file.close();
 	}

@@ -3,25 +3,32 @@
 #include "Math.h"
 
 Map::Map() :
-	tileWidth(16), tileHeight(16), totalTilesX(0), totalTilesY(0), totalTiles(0)
+	totalTilesX(0), totalTilesY(0), totalTiles(0), mapSprites(nullptr)
 {
 }
 
 Map::~Map()
 {
+	delete[] mapSprites;
+	delete[] tiles;
 }
 
 void Map::Initialize()
 {
-	size = sf::Vector2i(tileWidth, tileHeight);
 }
 
 void Map::Load()
 {
-	if (tileSheetTexture.loadFromFile("assets/world/ground tileset/tileset_road.png"))
+	mapLoader.Load("assets/world/maps/level1.rmap", md);
+
+	size = sf::Vector2i(md.tileWidth, md.tileHeight);
+
+	mapSprites = new sf::Sprite[md.dataLength];
+
+	if (tileSheetTexture.loadFromFile(md.tileSheet))
 	{
-		totalTilesX = tileSheetTexture.getSize().x / tileWidth;
-		totalTilesY = tileSheetTexture.getSize().y / tileHeight;
+		totalTilesX = tileSheetTexture.getSize().x / md.tileWidth;
+		totalTilesY = tileSheetTexture.getSize().y / md.tileHeight;
 
 		totalTiles = totalTilesX * totalTilesY;
 
@@ -34,7 +41,7 @@ void Map::Load()
 				int i = x + y * totalTilesX;
 
 				tiles[i].id = i;
-				tiles[i].position = sf::Vector2i(x * tileWidth, y * tileHeight);
+				tiles[i].position = sf::Vector2i(x * md.tileWidth, y * md.tileHeight);
 			}
 		}
 
@@ -42,30 +49,30 @@ void Map::Load()
 	}
 	else
 	{
-		std::cout <<"Road tileSheet failed to load!" << std::endl;
+		std::cout << "Road tileSheet failed to load!" << std::endl;
 	}
 
-	for (size_t y = 0; y < mapHeight; y++)
+	for (size_t y = 0; y < md.mapHeight; y++)
 	{
-		for (size_t x = 0; x < mapWidth; x++)
+		for (size_t x = 0; x < md.mapWidth; x++)
 		{
-			int i = x + y * mapWidth;
+			int i = x + y * md.mapWidth;
 
-			int index = mapNumbers[i];
+			int index = md.data[i];
 
 			mapSprites[i].setTexture(tileSheetTexture);
 			mapSprites[i].setTextureRect(sf::IntRect
 					(
 					 tiles[index].position.x,
 					 tiles[index].position.y,
-					 tileWidth,
-					 tileHeight
+					 md.tileWidth,
+					 md.tileHeight
 					));
 
 			scale = Math::CalcScale(size);
 
 			mapSprites[i].setScale(sf::Vector2f(scale.x, scale.y));
-			mapSprites[i].setPosition(sf::Vector2f(x * tileWidth * mapSprites[i].getScale().x, y * tileHeight * mapSprites[i].getScale().y));
+			mapSprites[i].setPosition(sf::Vector2f(x * md.tileWidth * mapSprites[i].getScale().x, y * md.tileHeight * mapSprites[i].getScale().y));
 		}
 	}
 
@@ -77,7 +84,7 @@ void Map::Update(float deltaTime)
 
 void Map::Draw(sf::RenderWindow& window)
 {
-	for (size_t i = 0; i < mapSize; i++)
+	for (size_t i = 0; i < md.dataLength; i++)
 	{
 		window.draw(mapSprites[i]);
 	}

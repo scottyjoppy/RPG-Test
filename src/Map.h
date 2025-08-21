@@ -1,7 +1,10 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "Tile.h"
 #include <vector>
+
+#include "MapLoader.h"
+#include "MapData.h"
+#include "Tile.h"
 
 class Map
 {
@@ -10,10 +13,11 @@ class Map
 	
 		std::vector<Tile> tiles;
 
+		MapLoader mapLoader;
+		MapData md;
+
 		sf::Vector2i size;
 
-		int tileWidth;
-		int tileHeight;
 		sf::Vector2f scale;
 
 		int totalTiles;
@@ -21,16 +25,7 @@ class Map
 		int totalTilesX;
 		int totalTilesY;
 
-		static const int mapHeight = 2;
-		static const int mapWidth = 3;
-		static const int mapSize = mapWidth * mapHeight;
-
-		int mapNumbers[mapSize] =
-		{
-			1, 1, 1, 4, 4, 1
-		};
-
-		sf::Sprite mapSprites[mapSize];
+		sf::Sprite* mapSprites;
 
 	public:
 		Map();

@@ -37,18 +37,13 @@ sf::Vector2f Math::CalcScale(sf::Vector2i tileSize)
 {
 	float defaultSize = GLOBALTILESIZE;
 
-	sf::Vector2f size;
+	sf::Vector2f scale;
 
-	if (tileSize.x > tileSize.y)
-	{
-		size.x = defaultSize / tileSize.x;
-		size.y = defaultSize / tileSize.x;
-	}
-	else
-	{
-		size.x = defaultSize / tileSize.y;
-		size.y = defaultSize / tileSize.y;
-	}
+	int maxDimension = std::max(tileSize.x, tileSize.y);
 
-	return size;
+	float scaleFactor = defaultSize / maxDimension;
+	scale.x = scaleFactor;
+	scale.y = scaleFactor;
+
+	return scale;
  }
