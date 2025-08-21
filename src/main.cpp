@@ -5,6 +5,7 @@
 #include "Map.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "MapLoader.h"
 
 int main()
 {
@@ -19,6 +20,8 @@ int main()
 	Map map;
 	Player player;
 	Enemy enemy;
+	MapLoader mapLoader;
+	mapLoader.Load("assets/world/maps/level1.rmap");
 
 	frameRate.Initialize();
 	map.Initialize();

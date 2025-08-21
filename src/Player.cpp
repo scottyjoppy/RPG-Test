@@ -23,7 +23,7 @@ void Player::Initialize()
 
 void Player::Load()
 {
-	if (texture.loadFromFile("Assets/Player/Textures/Character_Idle.png"))
+	if (texture.loadFromFile("assets/player/textures/character_idle.png"))
 	{
 		std::cout << "Player Images Loaded!" << std::endl;
 		sprite.setTexture(texture);

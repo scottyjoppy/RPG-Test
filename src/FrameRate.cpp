@@ -16,7 +16,7 @@ void FrameRate::Initialize()
 
 void FrameRate::Load()
 {
-	if (font.loadFromFile("Assets/Fonts/consola.ttf"))
+	if (font.loadFromFile("assets/fonts/consola.ttf"))
 	{
 		std::cout << "FrameRate Consola Font loaded successfully" << std::endl;
 		frameRateText.setFont(font);

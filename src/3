@@ -18,7 +18,7 @@ void Map::Initialize()
 
 void Map::Load()
 {
-	if (tileSheetTexture.loadFromFile("Assets/World/Ground Tileset/Tileset_Road.png"))
+	if (tileSheetTexture.loadFromFile("assets/world/ground tileset/tileset_road.png"))
 	{
 		totalTilesX = tileSheetTexture.getSize().x / tileWidth;
 		totalTilesY = tileSheetTexture.getSize().y / tileHeight;
@@ -45,11 +45,11 @@ void Map::Load()
 		std::cout <<"Road tileSheet failed to load!" << std::endl;
 	}
 
-	for (size_t y = 0; y < 2; y++)
+	for (size_t y = 0; y < mapHeight; y++)
 	{
-		for (size_t x = 0; x < 3; x++)
+		for (size_t x = 0; x < mapWidth; x++)
 		{
-			int i = x + y * 3;
+			int i = x + y * mapWidth;
 
 			int index = mapNumbers[i];
 
@@ -65,7 +65,7 @@ void Map::Load()
 			scale = Math::CalcScale(size);
 
 			mapSprites[i].setScale(sf::Vector2f(scale.x, scale.y));
-			mapSprites[i].setPosition(sf::Vector2f(x * tileWidth * scale.x, y * tileHeight * scale.y));
+			mapSprites[i].setPosition(sf::Vector2f(x * tileWidth * mapSprites[i].getScale().x, y * tileHeight * mapSprites[i].getScale().y));
 		}
 	}
 

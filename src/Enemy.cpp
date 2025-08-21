@@ -28,14 +28,14 @@ void Enemy::Initialize()
 
 void Enemy::Load()
 {
-	if (font.loadFromFile("Assets/Fonts/consola.ttf"))
+	if (font.loadFromFile("assets/fonts/consola.ttf"))
 	{
 		std::cout << "Enemy Consola Font loaded successfully" << std::endl;
 		healthText.setFont(font);
 		healthText.setString(std::to_string(health));
 	}
 
-	if (texture.loadFromFile("Assets/Enemy/Textures/Enemy.png"))
+	if (texture.loadFromFile("assets/enemy/textures/enemy.png"))
 	{
 		std::cout << "Enemy Images Loaded!" << std::endl;
 		sprite.setTexture(texture);

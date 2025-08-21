@@ -21,12 +21,16 @@ class Map
 		int totalTilesX;
 		int totalTilesY;
 
-		int mapNumbers[6] =
+		static const int mapHeight = 2;
+		static const int mapWidth = 3;
+		static const int mapSize = mapWidth * mapHeight;
+
+		int mapNumbers[mapSize] =
 		{
 			1, 1, 1, 4, 4, 1
 		};
 
-		sf::Sprite mapSprites[6];
+		sf::Sprite mapSprites[mapSize];
 
 	public:
 		Map();

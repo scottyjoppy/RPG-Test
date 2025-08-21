@@ -1,0 +1,7 @@
+[Map]
+tilesheet="C:/Users/alexa/GameProject/Assets/World/Ground Tileset/Tileset_Road.png"
+name=Level 1
+tile-width=16
+tile-height=16
+
+data=1, 1, 1, 4, 4, 1

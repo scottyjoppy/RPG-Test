@@ -1,6 +1,7 @@
 #include <math.h>
 #include "Math.h"
 #include <iostream>
+#define GLOBALTILESIZE 48
 
 sf::Vector2f Math::NormalizeVector(sf::Vector2f vector)
 {
@@ -34,8 +35,7 @@ bool Math::DidRectCollide(sf::FloatRect rect1, sf::FloatRect rect2)
 
 sf::Vector2f Math::CalcScale(sf::Vector2i tileSize)
 {
-	// Set 48 pixels per tile as standard
-	float defaultSize = 48;
+	float defaultSize = GLOBALTILESIZE;
 
 	sf::Vector2f size;
 
